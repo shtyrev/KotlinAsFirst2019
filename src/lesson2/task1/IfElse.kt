@@ -143,7 +143,7 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-/*fun triangleKind(a: Double, b: Double, c: Double): Int {
+fun triangleKind(a: Double, b: Double, c: Double): Int = TODO() /*{
     return if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
         if (a > b && a > c) {
             val s = cos((b * b + c * c - a * a) / (2 * b * c))
