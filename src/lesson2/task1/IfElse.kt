@@ -66,7 +66,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
 fun ageDescription(age: Int): String {
     return if (age % 10 == 1 && age % 100 != 11) {
         "$age год"
-    } else if (age == (2) || age == (3) || age == (4) || (age % 100 > 20 && (age % 10 == (2))) || (age % 100 > 20 && (age % 10 == (3))) || (age % 100 > 20 && (age % 10 == (4)))) {
+    } else if (age % 100 == (2) || age % 100 == (3) || age % 100 == (4) || (age % 100 > 20 && (age % 10 == (2))) || (age % 100 > 20 && (age % 10 == (3))) || (age % 100 > 20 && (age % 10 == (4)))) {
         "$age года"
     } else "$age лет"
 }
@@ -143,32 +143,32 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO() /*{
-    return if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
-        if (a > b && a > c) {
-            val s = cos((b * b + c * c - a * a) / (2 * b * c))
-            return when {
-                s < 0 -> 2
-                s > 0 -> 0
-                else -> 1
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
+        if (a >= b && a >= c) {
+            when {
+                a.pow(2) < b.pow(2) + c.pow(2) -> return 0
+                a.pow(2) == b.pow(2) + c.pow(2) -> return 1
+                a.pow(2) > b.pow(2) + c.pow(2) -> return 2
             }
-        } else if (b > c && b > a) {
-            val s = cos((sqr(a) + sqr(c) - sqr(b)) / (2 * a * c))
-            return when {
-                s < 0 -> 2
-                s > 0 -> 0
-                else -> 1
+        }
+        if (b >= a && b >= c) {
+            when {
+                b.pow(2) < a.pow(2) + c.pow(2) -> return 0
+                b.pow(2) == a.pow(2) + c.pow(2) -> return 1
+                b.pow(2) > a.pow(2) + c.pow(2) -> return 2
             }
-        } else if (c > b && c > a) {
-            val s = cos((sqr(a) + sqr(b) - sqr(c)) / (2 * b * a))
-            return when {
-                s < 0 -> 2
-                s > 0 -> 0
-                else -> 1
+        }
+        if (c >= b && a >= a) {
+            when {
+                c.pow(2) < b.pow(2) + a.pow(2) -> return 0
+                c.pow(2) == b.pow(2) + a.pow(2) -> return 1
+                c.pow(2) > b.pow(2) + a.pow(2) -> return 2
             }
-        } else return -1
-    } else -1
-}*/
+        }
+    }
+    return -1
+}
 
 /**
  * Средняя
@@ -178,4 +178,15 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO() /*{
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    if (c in a..b && d !in a..b) {
+        return b - c
+    } else if (d in a..b && c !in a..b){
+        return d - a
+    } else if (a in c..d && b in c..d) {
+        return b - a
+    } else if (c in a..b && d in a..b) {
+        return d - c
+    }
+    return -1
+}
