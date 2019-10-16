@@ -2,7 +2,6 @@
 
 package lesson2.task1
 
-import lesson1.task1.sqr
 import lesson1.task1.discriminant
 import kotlin.math.*
 
@@ -64,11 +63,11 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    return if (age % 10 == 1 && age % 100 != 11) {
-        "$age год"
-    } else if (age % 100 == (2) || age % 100 == (3) || age % 100 == (4) || (age % 100 > 20 && (age % 10 == (2))) || (age % 100 > 20 && (age % 10 == (3))) || (age % 100 > 20 && (age % 10 == (4)))) {
-        "$age года"
-    } else "$age лет"
+    return when {
+        age % 10 == 1 && age % 100 != 11 -> "$age год"
+        age % 100 == (2) || age % 100 == (3) || age % 100 == (4) || age % 100 > 20 && (age % 10 == (2)) || age % 100 > 20 && (age % 10 == (3)) || age % 100 > 20 && (age % 10 == (4)) -> "$age года"
+        else -> "$age лет"
+    }
 }
 
 /**
@@ -144,27 +143,16 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
+    var m = a
+    var n = b
+    var k = c
     if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
-        if (a >= b && a >= c) {
-            when {
-                a.pow(2) < b.pow(2) + c.pow(2) -> return 0
-                a.pow(2) == b.pow(2) + c.pow(2) -> return 1
-                a.pow(2) > b.pow(2) + c.pow(2) -> return 2
-            }
-        }
-        if (b >= a && b >= c) {
-            when {
-                b.pow(2) < a.pow(2) + c.pow(2) -> return 0
-                b.pow(2) == a.pow(2) + c.pow(2) -> return 1
-                b.pow(2) > a.pow(2) + c.pow(2) -> return 2
-            }
-        }
-        if (c >= b && a >= a) {
-            when {
-                c.pow(2) < b.pow(2) + a.pow(2) -> return 0
-                c.pow(2) == b.pow(2) + a.pow(2) -> return 1
-                c.pow(2) > b.pow(2) + a.pow(2) -> return 2
-            }
+        if (n >= m && n >= k) m = n.also { n = m }
+        if (k >= n && k >= m) m = k.also { k = m }
+        if (m >= n && m >= k) when {
+            m.pow(2) < n.pow(2) + k.pow(2) -> return 0
+            m.pow(2) == n.pow(2) + k.pow(2) -> return 1
+            m.pow(2) > n.pow(2) + k.pow(2) -> return 2
         }
     }
     return -1
@@ -179,14 +167,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if (c in a..b && d !in a..b) {
-        return b - c
-    } else if (d in a..b && c !in a..b){
-        return d - a
-    } else if (a in c..d && b in c..d) {
-        return b - a
-    } else if (c in a..b && d in a..b) {
-        return d - c
+    return when {
+        c in a..b && d !in a..b -> b - c
+        d in a..b && c !in a..b -> d - a
+        a in c..d && b in c..d -> b - a
+        c in a..b && d in a..b -> d - c
+        else -> -1
     }
-    return -1
 }

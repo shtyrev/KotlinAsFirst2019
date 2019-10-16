@@ -3,7 +3,6 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
-import ru.spbstu.kotlin.generate.assume.retry
 import kotlin.math.*
 
 /**
@@ -20,10 +19,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean {
-    if (number / 1000 + number / 100 % 10 == number % 100 / 10 + number % 10) return true
-    return false
-}
+fun isNumberHappy(number: Int): Boolean = number / 1000 + number / 100 % 10 == number % 100 / 10 + number % 10
 
 /**
  * Простая
@@ -33,12 +29,8 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    if (x1 == x2 || y1 == y2) {
-        return true
-    } else if (abs(x1 - x2) == abs(y1 - y2)) {
-        return true
-    }
-    return false
+    return x1 == x2 || y1 == y2
+    return abs(x1 - x2) == abs(y1 - y2)
 }
 
 
@@ -49,14 +41,17 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int {
-    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) return 31
-    if (month == 4 || month == 6 || month == 9 || month == 11) return 30
-    if (year % 4 == 0 && month == 2) {
-        if (year % 100 == 0 && year % 400 != 0) return 28
-        return 29
+    return when {
+        month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 -> 31
+        month == 4 || month == 6 || month == 9 || month == 11 -> 30
+        year % 4 == 0 && month == 2 -> {
+            when {
+                year % 100 == 0 && year % 400 != 0 -> 28
+                else -> 29
+            }
+        }
+        else -> 28
     }
-    if (month == 2) return 28
-    return -1
 }
 
 /**
@@ -69,10 +64,10 @@ fun daysInMonth(month: Int, year: Int): Int {
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean = TODO() // {
-//    if ((x2 + r2 >= x1 + r1 && x2 - r2 <= x1 - r1) && (y2 + r2 >= y1 + r1 && y2 - r2 <= y1 - r1)) return true
-//    return false
-//}
+): Boolean = TODO() /* {
+    if ((x2 + r2 >= x1 + r1 && x2 - r2 <= x1 - r1) && (y2 + r2 >= y1 + r1 && y2 - r2 <= y1 - r1)) return true
+    return false
+}*/
 
 /**
  * Средняя
@@ -83,8 +78,5 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    if ((a <= r && b <= s) || (a <= r && c <= s) || (b <= r && c <= s)) return true
-    if ((a <= s && b <= r) || (a <= s && c <= r) || (b <= s && c <= r)) return true
-    return false
-}
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
+    (min(a, r) == a || min(b, r) == b || min(c, r) == c) && (min(a, s) == a || min(b, s) == b || min(c, s) == c)
