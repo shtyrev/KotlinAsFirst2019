@@ -11,6 +11,13 @@ import kotlin.math.*
  */
 fun sqr(x: Int) = x * x
 
+fun factorial(num: Int): Int {
+    var res = 1
+    for(i in 2..num) res *= i
+    return res
+
+}
+
 /**
  * Пример
  *

@@ -4,6 +4,9 @@ package lesson3.task1
 
 import kotlin.math.abs
 import kotlin.math.sqrt
+import lesson1.task1.sqr
+import lesson1.task1.factorial
+import kotlin.math.pow
 
 /**
  * Пример
@@ -148,9 +151,16 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()/*{
-
-}*/
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var i = m
+    while (m % i != 0 || n % i != 0) {
+        i--
+    }
+    return when (i) {
+        1 -> true
+        else -> false
+    }
+}
 
 /**
  * Простая
@@ -159,7 +169,16 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()/*{
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    var i = 1
+    while (sqr(i) < m) {
+        i++
+    }
+    return when {
+        i <= 46340 && sqr(i) <= n -> true
+        else -> false
+    }
+}
 
 /**
  * Средняя
@@ -177,7 +196,20 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var i = 0
+    var y = x
+    while (y != 1) {
+        if (y % 2 == 0) {
+            y /= 2
+            i++
+        } else {
+            y = y * 3 + 1
+            i++
+        }
+    }
+    return i
+}
 
 /**
  * Средняя
@@ -188,7 +220,22 @@ fun collatzSteps(x: Int): Int = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var i = 3
+    var j = 0
+    var y: Double = x
+    while (eps <= y) {
+        if (j % 2 == 0) {
+            y = y - (x.pow(i) / factorial(i))
+            i += 2
+            j++
+        } else if (j % 2 == 1) {
+            y = y + (x.pow(i) / factorial(i))
+            i += 2
+        }
+    }
+    return y
+}
 
 /**
  * Средняя
