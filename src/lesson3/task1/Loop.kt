@@ -5,8 +5,8 @@ package lesson3.task1
 import kotlin.math.abs
 import kotlin.math.sqrt
 import lesson1.task1.sqr
-import lesson1.task1.factorial
 import kotlin.math.pow
+import kotlin.math.roundToInt
 
 /**
  * Пример
@@ -223,15 +223,16 @@ fun collatzSteps(x: Int): Int {
 fun sin(x: Double, eps: Double): Double {
     var i = 3
     var j = 0
-    var y: Double = x
-    while (eps <= y) {
-        if (j % 2 == 0) {
-            y = y - (x.pow(i) / factorial(i))
+    var y = x
+    while (eps <= abs(x.pow(i) / factorial(i))) {
+        if (j == 0) {
+            y -= (x.pow(i) / factorial(i))
             i += 2
-            j++
-        } else if (j % 2 == 1) {
-            y = y + (x.pow(i) / factorial(i))
+            j = 1
+        } else if (j == 1) {
+            y += (x.pow(i) / factorial(i))
             i += 2
+            j = 0
         }
     }
     return y
