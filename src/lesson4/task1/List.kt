@@ -399,179 +399,181 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String {
-    var num = n
-    var str = ""
-    val number = mutableListOf<Int>()
-    val word = mutableListOf<String>(
-        " один",
-        " два",
-        " три",
-        " четыре",
-        " пять",
-        " шесть",
-        " семь",
-        " восемь",
-        " девять",
-        " десять",
-        " одиннадцать",
-        " двенадцать",
-        " тринадцать",
-        " четырнадцать",
-        " пятнадцать",
-        " шестнадцать",
-        " семнадцать",
-        " восемнадцать",
-        " девятнадцать",
-        " двадцать",
-        " тридцать",
-        " сорок",
-        " пятьдесят",
-        " шестьдесят",
-        " семьдесят",
-        " восемьдесят",
-        " девяносто",
-        " сто",
-        " двести",
-        " триста",
-        " четыреста",
-        " пятьсот",
-        " шестьсот",
-        " семьсот",
-        " восемьсот",
-        " девятьсот",
-        " тысяч",
-        " тысяча",
-        " тысячи",
-        " тысяч",
-        " одна",
-        " две"
-    )
-    while (num > 0) {
-        number.add(num % 10)
-        num /= 10
-    }
-
-    for (i in 0 until number.size) {
-        // 1..9
-        if (number.size == 1) {
-            when (number[0]) {
-                1 -> str += word[0]
-                2 -> str += word[1]
-                3 -> str += word[2]
-                4 -> str += word[3]
-                5 -> str += word[4]
-                6 -> str += word[5]
-                7 -> str += word[6]
-                8 -> str += word[7]
-                9 -> str += word[8]
-            }
-        }
-        //10..19  0..9  2*..9*
-        if (number.size > 1) {
-            when (number[1]) {
-                1 -> when (number[0]) {
-                    0 -> str += word[9]
-                    1 -> str += word[10]
-                    2 -> str += word[11]
-                    3 -> str += word[12]
-                    4 -> str += word[13]
-                    5 -> str += word[14]
-                    6 -> str += word[15]
-                    7 -> str += word[16]
-                    8 -> str += word[17]
-                    9 -> str += word[18]
-                }
-                2 -> str += word[19]
-                3 -> str += word[20]
-                4 -> str += word[21]
-                5 -> str += word[22]
-                6 -> str += word[23]
-                7 -> str += word[24]
-                8 -> str += word[25]
-                9 -> str += word[26]
-                else -> when (number[0]) {
-                    1 -> str += word[0]
-                    2 -> str += word[1]
-                    3 -> str += word[2]
-                    4 -> str += word[3]
-                    5 -> str += word[4]
-                    6 -> str += word[5]
-                    7 -> str += word[6]
-                    8 -> str += word[7]
-                    9 -> str += word[8]
-                }
-            }
-        }
-        // 1**..9**
-        if (number.size > 2) {
-            when (number[2]) {
-                1 -> str += word[27]
-                2 -> str += word[28]
-                3 -> str += word[29]
-                4 -> str += word[30]
-                5 -> str += word[31]
-                6 -> str += word[32]
-                7 -> str += word[33]
-                8 -> str += word[34]
-                9 -> str += word[35]
-            }
-        }
-        // 1***..9v***
-        if (number.size > 3) {
-            when (number[3]) {
-
-                1 -> when (number[2]) {
-                    0 -> str += word[9] + word[36]
-                    1 -> str += word[10] + word[36]
-                    2 -> str += word[11] + word[36]
-                    3 -> str += word[12] + word[36]
-                    4 -> str += word[13] + word[36]
-                    5 -> str += word[14] + word[36]
-                    6 -> str += word[15] + word[36]
-                    7 -> str += word[16] + word[36]
-                    8 -> str += word[17] + word[36]
-                    9 -> str += word[18] + word[36]
-                }
-                else -> when (number[2]) {
-                    1 -> str += word[40] + word[37]
-                    2 -> str += word[41] + word[38]
-                    3 -> str += word[2] + word[38]
-                    4 -> str += word[3] + word[38]
-                    5 -> str += word[4] + word[39]
-                    6 -> str += word[5] + word[39]
-                    7 -> str += word[6] + word[39]
-                    8 -> str += word[7] + word[39]
-                    9 -> str += word[8] + word[39]
-                }
-            }
-        }
-        if (number.size > 4) {
-            when (number[3]) {
-                2 -> str += word[19] + word[39]
-                3 -> str += word[20] + word[39]
-                4 -> str += word[21] + word[39]
-                5 -> str += word[22] + word[39]
-                6 -> str += word[23] + word[39]
-                7 -> str += word[24] + word[39]
-                8 -> str += word[25] + word[39]
-                9 -> str += word[26] + word[39]
-            }
-        }
-        if (number.size > 5) {
-            when (number[4]) {
-                2 -> str += word[19] + word[39]
-                3 -> str += word[20] + word[39]
-                4 -> str += word[21] + word[39]
-                5 -> str += word[22] + word[39]
-                6 -> str += word[23] + word[39]
-                7 -> str += word[24] + word[39]
-                8 -> str += word[25] + word[39]
-                9 -> str += word[26] + word[39]
-            }
-        }
-
-        for (i in 0 until word.size) str += "${word[i]}"
-    }
-    return str.trim()
-}
+fun russian(n: Int): String = TODO()
+// Не сделано, уберу позже
+// {
+// var num = n
+// var str = ""
+// val number = mutableListOf<Int>()
+// val word = mutableListOf<String>(
+// " один",
+// " два",
+// " три",
+// " четыре",
+// " пять",
+// " шесть",
+// " семь",
+// " восемь",
+// " девять",
+// " десять",
+// " одиннадцать",
+// " двенадцать",
+// " тринадцать",
+// " четырнадцать",
+// " пятнадцать",
+// " шестнадцать",
+// " семнадцать",
+// " восемнадцать",
+// " девятнадцать",
+// " двадцать",
+// " тридцать",
+// " сорок",
+// " пятьдесят",
+// " шестьдесят",
+// " семьдесят",
+// " восемьдесят",
+// " девяносто",
+// " сто",
+// " двести",
+// " триста",
+// " четыреста",
+// " пятьсот",
+// " шестьсот",
+// " семьсот",
+// " восемьсот",
+// " девятьсот",
+// " тысяч",
+// " тысяча",
+// " тысячи",
+// " тысяч",
+// " одна",
+// " две"
+// )
+// while (num > 0) {
+// number.add(num % 10)
+// num /= 10
+// }
+//
+// for (i in 0 until number.size) {
+// // 1..9
+// if (number.size == 1) {
+// when (number[0]) {
+// 1 -> str += word[0]
+// 2 -> str += word[1]
+// 3 -> str += word[2]
+// 4 -> str += word[3]
+// 5 -> str += word[4]
+// 6 -> str += word[5]
+// 7 -> str += word[6]
+// 8 -> str += word[7]
+// 9 -> str += word[8]
+// }
+// }
+// //10..19  0..9  2*..9*
+// if (number.size > 1) {
+// when (number[1]) {
+// 1 -> when (number[0]) {
+// 0 -> str += word[9]
+// 1 -> str += word[10]
+// 2 -> str += word[11]
+// 3 -> str += word[12]
+// 4 -> str += word[13]
+// 5 -> str += word[14]
+// 6 -> str += word[15]
+// 7 -> str += word[16]
+// 8 -> str += word[17]
+// 9 -> str += word[18]
+// }
+// 2 -> str += word[19]
+// 3 -> str += word[20]
+// 4 -> str += word[21]
+// 5 -> str += word[22]
+// 6 -> str += word[23]
+// 7 -> str += word[24]
+// 8 -> str += word[25]
+// 9 -> str += word[26]
+// else -> when (number[0]) {
+// 1 -> str += word[0]
+// 2 -> str += word[1]
+// 3 -> str += word[2]
+// 4 -> str += word[3]
+// 5 -> str += word[4]
+// 6 -> str += word[5]
+// 7 -> str += word[6]
+// 8 -> str += word[7]
+// 9 -> str += word[8]
+// }
+// }
+// }
+// // 1**..9**
+// if (number.size > 2) {
+// when (number[2]) {
+// 1 -> str += word[27]
+// 2 -> str += word[28]
+// 3 -> str += word[29]
+// 4 -> str += word[30]
+// 5 -> str += word[31]
+// 6 -> str += word[32]
+// 7 -> str += word[33]
+// 8 -> str += word[34]
+// 9 -> str += word[35]
+// }
+// }
+// // 1***..9v***
+// if (number.size > 3) {
+// when (number[3]) {
+//
+// 1 -> when (number[2]) {
+// 0 -> str += word[9] + word[36]
+// 1 -> str += word[10] + word[36]
+// 2 -> str += word[11] + word[36]
+// 3 -> str += word[12] + word[36]
+// 4 -> str += word[13] + word[36]
+// 5 -> str += word[14] + word[36]
+// 6 -> str += word[15] + word[36]
+// 7 -> str += word[16] + word[36]
+// 8 -> str += word[17] + word[36]
+// 9 -> str += word[18] + word[36]
+// }
+// else -> when (number[2]) {
+// 1 -> str += word[40] + word[37]
+// 2 -> str += word[41] + word[38]
+// 3 -> str += word[2] + word[38]
+// 4 -> str += word[3] + word[38]
+// 5 -> str += word[4] + word[39]
+// 6 -> str += word[5] + word[39]
+// 7 -> str += word[6] + word[39]
+// 8 -> str += word[7] + word[39]
+// 9 -> str += word[8] + word[39]
+// }
+// }
+// }
+// if (number.size > 4) {
+// when (number[3]) {
+// 2 -> str += word[19] + word[39]
+// 3 -> str += word[20] + word[39]
+// 4 -> str += word[21] + word[39]
+// 5 -> str += word[22] + word[39]
+// 6 -> str += word[23] + word[39]
+// 7 -> str += word[24] + word[39]
+// 8 -> str += word[25] + word[39]
+// 9 -> str += word[26] + word[39]
+// }
+// }
+// if (number.size > 5) {
+// when (number[4]) {
+// 2 -> str += word[19] + word[39]
+// 3 -> str += word[20] + word[39]
+// 4 -> str += word[21] + word[39]
+// 5 -> str += word[22] + word[39]
+// 6 -> str += word[23] + word[39]
+// 7 -> str += word[24] + word[39]
+// 8 -> str += word[25] + word[39]
+// 9 -> str += word[26] + word[39]
+// }
+// }
+//
+// for (i in 0 until word.size) str += "${word[i]}"
+// }
+// return str.trim()
+// }
