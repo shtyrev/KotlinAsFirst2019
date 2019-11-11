@@ -5,6 +5,14 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
 class Tests {
+
+    @Test
+    @Tag("Example")
+    fun intInList() {
+        assertEquals(listOf(1, 2, 3, 4, 5), intInList(12345))
+        assertEquals(listOf(1, 7, 4, 5, 9, 2), intInList(174592))
+    }
+
     @Test
     @Tag("Example")
     fun sqRoots() {

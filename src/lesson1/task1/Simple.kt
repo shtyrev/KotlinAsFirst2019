@@ -4,6 +4,8 @@ package lesson1.task1
 
 import kotlin.math.*
 
+fun Int.pow(n: Int): Int = this.toDouble().pow(n).toInt()
+
 /**
  * Пример
  *

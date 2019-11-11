@@ -6,7 +6,9 @@ import kotlin.math.abs
 import kotlin.math.sqrt
 import lesson1.task1.sqr
 import kotlin.math.pow
-import kotlin.math.roundToInt
+import lesson1.task1.pow
+import lesson4.task1.intInList
+import lesson1.task1.sqr
 
 /**
  * Пример
@@ -256,7 +258,31 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+// длина числа
+fun intLength(n: Int): Int {
+    var num = n
+    var count = 0
+    when (n) {
+        0 -> count = 1
+        else -> while (num != 0) {
+            count++
+            num /= 10
+        }
+    }
+    return count
+}
+
+fun revert(n: Int): Int {
+    var num = n
+    var number = 0
+    var count = intLength(n) - 1
+
+    for (i in count downTo 0) {
+        number += (num % 10) * 10.pow(i)
+        num /= 10
+    }
+    return number
+}
 
 /**
  * Средняя
@@ -267,7 +293,10 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    val num = revert(n)
+    return n == num
+}
 
 /**
  * Средняя
@@ -277,7 +306,15 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var count = intLength(n) - 1
+    val num1 = intInList(n)
+    val num2 = intInList(n)
+    for (i in 0 until count) {
+        if (num1[i] != num2[i + 1]) return true
+    }
+    return false
+}
 
 /**
  * Сложная
@@ -288,7 +325,27 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var x = 1
+    var num = 0
+    var count = 0
+
+    for (i in 1..n) {
+        count += intLength(sqr(i))
+        if (count >= n) {
+            num = count - n
+            x = sqr(i)
+            break
+        }
+    }
+    count = intLength(x)
+    for (i in 0 until count) {
+        when (num) {
+            i -> x = x / 10.pow(i) % 10
+        }
+    }
+return x
+}
 
 /**
  * Сложная
@@ -299,4 +356,27 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var count = 2
+    var number = 1
+    var num2: Int
+    var num1 = 1
+    var num = 1
+    if (n == 1 || n == 2) return 1
+    while (count < n) {
+        num2 = num1
+        num1 = num
+        num = (num2 + num1)
+        count += intLength(num)
+        if (count >= n) {
+            number = count - n
+        }
+    }
+    count = intLength(num)
+    for (i in 0 until count) {
+        when (number) {
+            i -> num = num / 10.pow(i) % 10
+        }
+    }
+    return num
+}

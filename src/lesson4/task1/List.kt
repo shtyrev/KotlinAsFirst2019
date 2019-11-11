@@ -4,8 +4,20 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
+import lesson3.task1.intLength
 import kotlin.math.pow
 import kotlin.math.sqrt
+
+fun intInList(n: Int): List<Int> {
+    var list = mutableListOf<Int>()
+    var count = intLength(n)
+    var num = n
+    for (i in 0 until count) {
+        list.add(num % 10)
+        num /= 10
+    }
+    return list.reversed()
+}
 
 /**
  * Пример
