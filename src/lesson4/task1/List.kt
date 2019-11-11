@@ -174,8 +174,8 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int {
-    var y = p[0]
     if (p.isEmpty()) return 0
+    var y = p[0]
     if (p.size == 1) return y
     for (i in 1 until p.size) y += p[i] * x.toDouble().pow(i).toInt()
     return y
@@ -238,7 +238,7 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     var num = n
     val list = mutableListOf<Int>()
-    while (num > base) {
+    while (num >= base) {
         list.add(num % base)
         num /= base
     }

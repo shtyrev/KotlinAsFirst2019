@@ -137,6 +137,7 @@ class Tests {
     @Tag("Normal")
     fun polynom() {
         assertEquals(0, polynom(listOf(), 1000))
+        assertEquals(0, polynom(listOf(), -15))
         assertEquals(42, polynom(listOf(42), -1000))
         assertEquals(13, polynom(listOf(3, 2), 5))
         assertEquals(0, polynom(listOf(2, -3, 1), 1))
@@ -185,6 +186,7 @@ class Tests {
         assertEquals(listOf(1, 2, 1, 0), convert(100, 4))
         assertEquals(listOf(1, 3, 12), convert(250, 14))
         assertEquals(listOf(2, 14, 12), convert(1000, 19))
+        assertEquals(listOf(1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0), convert(641010, 2))
     }
 
     @Test
