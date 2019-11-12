@@ -109,11 +109,37 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
-    return if (kingX != rookX1 && kingX != rookX2 && kingY != rookY1 && kingY != rookY2) 0
-    else if ((kingX != rookX2 && kingY != rookY2) && (kingX == rookX1 || kingY == rookY1)) 1
-    else if ((kingX != rookX1 && kingY != rookY1) && (kingX == rookX2 || kingY == rookY2)) 2
-    else 3
+    var x = rookX1
+    var y = rookY1
+    var count = 0
+    for (i in 0..2) {
+        when {
+            (kingX != x && kingY != y) -> {
+                x = rookX2
+                y = rookY2
+                if (count == 1) return 0
+                if (count == 2) return 1
+                count++
+            }
+            (count == 1 && (kingX == x || kingY == y)) -> return 2
+        }
+        when {
+            (x == rookX1 && (kingX == x || kingY == y)) -> {
+                count += 2
+                x = rookX2
+                y = rookY2
+            }
+
+        }
+    }
+    return 3
 }
+//        = when {
+//    (kingX != rookX1 && kingX != rookX2 && kingY != rookY1 && kingY != rookY2) -> 0
+//    ((kingX == rookX1 || kingY == rookY1) && (kingX != rookX2 && kingY != rookY2)) -> 1
+//    ((kingX != rookX1 && kingY != rookY1) && (kingX == rookX2 || kingY == rookY2)) -> 2
+//    else -> 3
+//}
 
 /**
  * Простая
@@ -129,12 +155,11 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int {
-    return if ((abs(kingX - bishopX) != abs(kingY - bishopY)) && (kingX != rookX && kingY != rookY)) 0
-    else if ((abs(kingX - bishopX) != abs(kingY - bishopY)) && (kingX == rookX || kingY == rookY)) 1
-    else if ((abs(kingX - bishopX) == abs(kingY - bishopY)) && (kingX != rookX && kingY != rookY)) 2
-    else 3
-
+): Int = when {
+    ((abs(kingX - bishopX) != abs(kingY - bishopY)) && (kingX != rookX && kingY != rookY)) -> 0
+    ((abs(kingX - bishopX) != abs(kingY - bishopY)) && (kingX == rookX || kingY == rookY)) -> 1
+    ((abs(kingX - bishopX) == abs(kingY - bishopY)) && (kingX != rookX && kingY != rookY)) -> 2
+    else -> 3
 }
 
 /**
