@@ -120,12 +120,6 @@ fun whichRookThreatens(
     }
     return 3
 }
-//        = when {
-//    (kingX != rookX1 && kingX != rookX2 && kingY != rookY1 && kingY != rookY2) -> 0
-//    ((kingX == rookX1 || kingY == rookY1) && (kingX != rookX2 && kingY != rookY2)) -> 1
-//    ((kingX != rookX1 && kingY != rookY1) && (kingX == rookX2 || kingY == rookY2)) -> 2
-//    else -> 3
-//}
 
 /**
  * Простая
@@ -167,12 +161,14 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     var n = b
     var k = c
     if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
-        if (n >= m && n >= k) m = n.also { n = m }
-        if (k >= n && k >= m) m = k.also { k = m }
-        if (m >= n && m >= k) when {
-            m.pow(2) < n.pow(2) + k.pow(2) -> return 0
-            m.pow(2) == n.pow(2) + k.pow(2) -> return 1
-            m.pow(2) > n.pow(2) + k.pow(2) -> return 2
+        when {
+            n >= m && n >= k -> m = n.also { n = m }
+            k >= n && k >= m -> m = k.also { k = m }
+            m >= n && m >= k -> when {
+                m.pow(2) < n.pow(2) + k.pow(2) -> return 0
+                m.pow(2) == n.pow(2) + k.pow(2) -> return 1
+                m.pow(2) > n.pow(2) + k.pow(2) -> return 2
+            }
         }
     }
     return -1
