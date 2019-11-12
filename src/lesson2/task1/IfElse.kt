@@ -109,27 +109,13 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
-    var x = rookX1
-    var y = rookY1
-    var count = 0
-    for (i in 0..2) {
-        when {
-            (kingX != x && kingY != y) -> {
-                x = rookX2
-                y = rookY2
-                if (count == 1) return 0
-                if (count == 2) return 1
-                count++
-            }
-            (count == 1 && (kingX == x || kingY == y)) -> return 2
-        }
-        when {
-            (x == rookX1 && (kingX == x || kingY == y)) -> {
-                count += 2
-                x = rookX2
-                y = rookY2
-            }
-
+    var ro1XY = (kingX != rookX1 && kingY != rookY1)
+    var ro2XY = (kingX != rookX2 && kingY != rookY2)
+    when {
+        (!ro1XY && ro2XY) -> return 1
+        (ro1XY) -> {
+            if (ro2XY) return 0
+            if (!ro2XY) return 2
         }
     }
     return 3
@@ -155,11 +141,17 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = when {
-    ((abs(kingX - bishopX) != abs(kingY - bishopY)) && (kingX != rookX && kingY != rookY)) -> 0
-    ((abs(kingX - bishopX) != abs(kingY - bishopY)) && (kingX == rookX || kingY == rookY)) -> 1
-    ((abs(kingX - bishopX) == abs(kingY - bishopY)) && (kingX != rookX && kingY != rookY)) -> 2
-    else -> 3
+): Int {
+    var absXY = (abs(kingX - bishopX) == abs(kingY - bishopY))
+    var roXY = (kingX != rookX && kingY != rookY)
+    when {
+        (!roXY && !absXY) -> return 1
+        (roXY) -> {
+            if (!absXY) return 0
+            if (absXY) return 2
+        }
+    }
+    return 3
 }
 
 /**
