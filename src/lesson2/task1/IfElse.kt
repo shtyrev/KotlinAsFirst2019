@@ -109,14 +109,12 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
-    var ro1XY = (kingX != rookX1 && kingY != rookY1)
-    var ro2XY = (kingX != rookX2 && kingY != rookY2)
+    val roXY1 = (kingX != rookX1 && kingY != rookY1)
+    val roXY2 = (kingX != rookX2 && kingY != rookY2)
     when {
-        (!ro1XY && ro2XY) -> return 1
-        (ro1XY) -> {
-            if (ro2XY) return 0
-            if (!ro2XY) return 2
-        }
+        (!roXY1 && roXY2) -> return 1
+        (roXY1 && roXY2) -> return 0
+        (roXY1 && !roXY2) -> return 2
     }
     return 3
 }
@@ -136,14 +134,12 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int {
-    var absXY = (abs(kingX - bishopX) == abs(kingY - bishopY))
-    var roXY = (kingX != rookX && kingY != rookY)
+    val absXY = (abs(kingX - bishopX) == abs(kingY - bishopY))
+    val roXY = (kingX != rookX && kingY != rookY)
     when {
         (!roXY && !absXY) -> return 1
-        (roXY) -> {
-            if (!absXY) return 0
-            if (absXY) return 2
-        }
+        (roXY && !absXY) -> return 0
+        (roXY && absXY) -> return 2
     }
     return 3
 }
@@ -161,14 +157,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     var n = b
     var k = c
     if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
-        when {
-            n >= m && n >= k -> m = n.also { n = m }
-            k >= n && k >= m -> m = k.also { k = m }
-            m >= n && m >= k -> when {
-                m.pow(2) < n.pow(2) + k.pow(2) -> return 0
-                m.pow(2) == n.pow(2) + k.pow(2) -> return 1
-                m.pow(2) > n.pow(2) + k.pow(2) -> return 2
-            }
+        if (n >= m && n >= k) m = n.also { n = m }
+        if (k >= n && k >= m) m = k.also { k = m }
+        if (m >= n && m >= k) when {
+            m.pow(2) < n.pow(2) + k.pow(2) -> return 0
+            m.pow(2) == n.pow(2) + k.pow(2) -> return 1
+            m.pow(2) > n.pow(2) + k.pow(2) -> return 2
         }
     }
     return -1

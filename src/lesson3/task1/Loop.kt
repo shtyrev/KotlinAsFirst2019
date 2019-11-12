@@ -222,20 +222,16 @@ fun collatzSteps(x: Int): Int {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
+fun xPowFact(x: Double, i: Int, j: Int): Double = ((-1).pow(j) * (x.pow(i)) / (factorial(i)))
+
 fun sin(x: Double, eps: Double): Double {
     var i = 3
-    var j = 0
+    var j = 1
     var y = x
-    while (eps <= abs(x.pow(i) / factorial(i))) {
-        if (j == 0) {
-            y -= (x.pow(i) / factorial(i))
-            i += 2
-            j = 1
-        } else if (j == 1) {
-            y += (x.pow(i) / factorial(i))
-            i += 2
-            j = 0
-        }
+    while (abs(xPowFact(x, i, 0)) > eps) {
+        y += xPowFact(x, i, j)
+        j++
+        i += 2
     }
     return y
 }
@@ -344,7 +340,7 @@ fun squareSequenceDigit(n: Int): Int {
             i -> x = x / 10.pow(i) % 10
         }
     }
-return x
+    return x
 }
 
 /**
