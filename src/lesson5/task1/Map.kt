@@ -95,7 +95,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     val gradeStudent = mutableMapOf<Int, List<String>>()
     val student = mutableListOf<String>()
     var i = 0
-    for (grade in 1..5) {
+    for (grade in 0..5) {
         for ((key, value) in grades) {
             if (grade == value) {
                 student.add(i, key)
@@ -207,12 +207,16 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = clearReplays(
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val map = mutableMapOf<String, String>()
+    when {
+        (mapA == null) -> return mapB
+        (mapB == null) -> return mapA
+    }
     for ((key1, value1) in mapA) {
         for ((key2, value2) in mapB) {
             when {
-                key1 == key2 -> if (value1 != value2 ) {
+                key1 == key2 -> if (value1 != value2) {
                     map[key1] = "$value1, $value2"
-                } else if (key1 !in map){
+                } else if (key1 !in map) {
                     map[key1] = "$value1"
                 }
                 key1 != key2 -> if (key1 !in map) {
