@@ -140,13 +140,11 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMap<String, String> {
-    for ((_, value) in b) {
-        for ((key, _) in a) {
-            if (value == b[key]) a.remove(key)
-        }
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
+    for ((key, value) in b) {
+        if (value == a[key]) a.remove(key)
+
     }
-    return a
 }
 
 /**
@@ -156,7 +154,39 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMa
  * В выходном списке не должно быть повторяюихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
+fun listToList(a: List<String>, b: List<String>): MutableList<String> {
+    val list = mutableListOf<String>()
+    for (item in a) {
+        for (element in b) {
+            if (item == element) {
+                list.add(item)
+                break
+            }
+        }
+    }
+    return list
+}
+
+fun clearReplays(list: MutableList<String>): List<String> {
+    var size = list.size
+    var j = 0
+    var i = 0
+    while (i in 0 until size) {
+        while (j in 0 until size) {
+            if (list[i] == list[j] && i != j) {
+                list.removeAt(j)
+                size = list.size
+                j--
+            }
+            j++
+        }
+        j = 0
+        i++
+    }
+    return list
+}
+
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = clearReplays(listToList(a, b))
 
 /**
  * Средняя
@@ -175,7 +205,24 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val map = mutableMapOf<String, String>()
+    for ((key1, value1) in mapA) {
+        for ((key2, value2) in mapB) {
+            when {
+                key1 == key2 -> if (value1 != value2 ) {
+                    map[key1] = "$value1, $value2"
+                } else if (key1 !in map){
+                    map[key1] = "$value1"
+                }
+                key1 != key2 -> if (key1 !in map) {
+                    map[key1] = value1
+                } else map[key2] = value2
+            }
+        }
+    }
+    return map
+}
 
 /**
  * Средняя
