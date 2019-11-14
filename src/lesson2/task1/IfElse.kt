@@ -3,6 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
 import kotlin.math.*
 
 /**
@@ -157,12 +158,14 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     var n = b
     var k = c
     if ((a < (b + c)) && (b < (a + c)) && (c < (a + b))) {
-        if (n >= m && n >= k) m = n.also { n = m }
-        if (k >= n && k >= m) m = k.also { k = m }
-        if (m >= n && m >= k) when {
-            m.pow(2) < n.pow(2) + k.pow(2) -> return 0
-            m.pow(2) == n.pow(2) + k.pow(2) -> return 1
-            m.pow(2) > n.pow(2) + k.pow(2) -> return 2
+        if (m < n) m = n.also { n = m }
+        if (m < k) m = k.also { k = m }
+        n = sqr(n) + sqr(k)
+        m = sqr(m)
+        return when {
+            m < n -> 0
+            m == n -> 1
+            else -> 2
         }
     }
     return -1
