@@ -94,17 +94,14 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     val gradeStudent = mutableMapOf<Int, List<String>>()
     val student = mutableListOf<String>()
-    var i = 0
-    for (grade in 0..5) {
-        for ((key, value) in grades) {
-            if (grade == value) {
-                student.add(i, key)
-                i++
+    for ((_, value) in grades) {
+        for ((key, value1) in grades) {
+            if (value == value1) {
+                student.add(key)
             }
         }
-        if (student.size != 0) gradeStudent[grade] = student.sorted()
+        gradeStudent[value] = student.sorted()
         student.clear()
-        i = 0
     }
     return gradeStudent
 }
@@ -140,11 +137,12 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
-    for ((key1) in b) {
-        for ((key) in a) {
-            if (a[key] == b[key1] && key == key1) a.remove(key)
-            break
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
+    val c = a.toMap()
+    for ((key, value) in c) {
+        for ((key1, value1) in b) {
+            if ((value == value1) && (key == key1))
+                a.remove(key, value)
         }
     }
 }
@@ -168,6 +166,7 @@ fun listToList(a: List<String>, b: List<String>): MutableList<String> {
     }
     return list
 }
+
 fun clearReplays(list: MutableList<String>): List<String> {
     var size = list.size
     var j = 0
@@ -218,7 +217,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
                 key1 == key2 -> if (value1 != value2) {
                     map[key1] = "$value1, $value2"
                 } else if (key1 !in map) {
-                    map[key1] = "$value1"
+                    map[key1] = value1
                 }
                 key1 != key2 -> if (key1 !in map) {
                     map[key1] = value1
