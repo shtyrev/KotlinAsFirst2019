@@ -141,9 +141,11 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
-    for ((key, value) in b) {
-        if (value == a[key]) a.remove(key)
-
+    for ((key1) in b) {
+        for ((key) in a) {
+            if (a[key] == b[key1] && key == key1) a.remove(key)
+            break
+        }
     }
 }
 
@@ -166,7 +168,6 @@ fun listToList(a: List<String>, b: List<String>): MutableList<String> {
     }
     return list
 }
-
 fun clearReplays(list: MutableList<String>): List<String> {
     var size = list.size
     var j = 0
@@ -208,8 +209,8 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = clearReplays(
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val map = mutableMapOf<String, String>()
     when {
-        (mapA == null) -> return mapB
-        (mapB == null) -> return mapA
+        (mapA.isEmpty()) -> return mapB
+        (mapB.isEmpty()) -> return mapA
     }
     for ((key1, value1) in mapA) {
         for ((key2, value2) in mapB) {

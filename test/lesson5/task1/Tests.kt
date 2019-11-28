@@ -181,7 +181,7 @@ class Tests {
             emptyMap<String, String>(),
             mergePhoneBooks(
                 mapOf(),
-                mapOf("" to "")
+                mapOf()
             )
         )
 
