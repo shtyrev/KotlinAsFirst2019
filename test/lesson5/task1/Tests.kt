@@ -178,14 +178,6 @@ class Tests {
     fun mergePhoneBooks() {
 
         assertEquals(
-            emptyMap<String, String>(),
-            mergePhoneBooks(
-                mapOf(),
-                mapOf()
-            )
-        )
-
-        assertEquals(
             mapOf("Emergency" to "112"),
             mergePhoneBooks(
                 mapOf("Emergency" to "112"),
