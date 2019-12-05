@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import java.lang.StringBuilder
+
 /**
  * Пример
  *
@@ -138,11 +140,12 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
+    val keys = b.keys
+    val values = b.values
     val c = a.toMap()
     for ((key, value) in c) {
-        for ((key1, value1) in b) {
-            if ((value == value1) && (key == key1))
-                a.remove(key, value)
+        if (key in keys && value in values) {
+            a.remove(key)
         }
     }
 }
@@ -267,7 +270,19 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    val str = StringBuilder()
+    var price = -1.0
+    for ((name, type) in stuff) {
+        if (type.first == kind && (type.second < price || price == -1.0)) {
+            price = type.second
+            str.clear()
+            str.append(name)
+        }
+    }
+    if (price == -1.0) return null
+    return str.toString()
+}
 
 /**
  * Средняя
@@ -278,7 +293,18 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    var count = 0
+    for (i in word.indices) {
+        for (element in chars) {
+            if (word[i].toLowerCase() == element.toLowerCase()) {
+                count++
+                break
+            }
+        }
+    }
+    return count == word.length
+}
 
 /**
  * Средняя
@@ -292,7 +318,18 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    var count = 1
+    val repeat = mutableMapOf<String, Int>()
+    for (i in list.indices) {
+        for (j in list.indices) {
+            if (i != j && list[i] == list[j]) count++
+        }
+        if (count != 1) repeat[list[i]] = count
+        count = 1
+    }
+    return repeat
+}
 
 /**
  * Средняя
