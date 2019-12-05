@@ -207,11 +207,6 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = clearReplays(
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val map = mutableMapOf<String, String>()
-    when {
-        (mapA.isEmpty()) -> return mapB
-        (mapB.isEmpty()) -> return mapA
-    }
-
     for ((key1, value1) in mapA) {
         for ((key2, value2) in mapB) {
             when {

@@ -204,11 +204,10 @@ fun collatzSteps(x: Int): Int {
     while (y != 1) {
         if (y % 2 == 0) {
             y /= 2
-            i++
         } else {
             y = y * 3 + 1
-            i++
         }
+        i++
     }
     return i
 }
@@ -271,7 +270,7 @@ fun intLength(n: Int): Int {
 fun revert(n: Int): Int {
     var num = n
     var number = 0
-    var count = intLength(n) - 1
+    val count = intLength(n) - 1
 
     for (i in count downTo 0) {
         number += (num % 10) * 10.pow(i)
@@ -289,10 +288,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    val num = revert(n)
-    return n == num
-}
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя
@@ -305,9 +301,8 @@ fun isPalindrome(n: Int): Boolean {
 fun hasDifferentDigits(n: Int): Boolean {
     var count = intLength(n) - 1
     val num1 = intInList(n)
-    val num2 = intInList(n)
     for (i in 0 until count) {
-        if (num1[i] != num2[i + 1]) return true
+        if (num1[i] != num1[i + 1]) return true
     }
     return false
 }

@@ -9,8 +9,8 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 fun intInList(n: Int): List<Int> {
-    var list = mutableListOf<Int>()
-    var count = intLength(n)
+    val list = mutableListOf<Int>()
+    val count = intLength(n)
     var num = n
     for (i in 0 until count) {
         list.add(num % 10)
@@ -142,12 +142,9 @@ fun abs(v: List<Double>): Double {
  */
 fun mean(list: List<Double>): Double {
     var x = 0.0
+    if (list.isEmpty()) return 0.0
     for (element in list) x += element
-    return when (list.size) {
-        0 -> 0.0
-        else -> x / list.size
-
-    }
+    return x / list.size
 }
 
 /**
@@ -235,10 +232,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String {
-    val list = factorize(n)
-    return list.joinToString(separator = "*")
-}
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
