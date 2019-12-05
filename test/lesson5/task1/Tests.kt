@@ -184,6 +184,22 @@ class Tests {
                 mapOf("Emergency" to "112")
             )
         )
+
+        assertEquals(
+            mapOf("@" to ""),
+            mergePhoneBooks(
+                mapOf("@" to ""),
+                mapOf()
+            )
+        )
+        assertEquals(
+            mapOf("@" to ""),
+            mergePhoneBooks(
+                mapOf(),
+                mapOf("@" to "")
+            )
+        )
+
         assertEquals(
             mapOf("Emergency" to "112", "Police" to "02"),
             mergePhoneBooks(
