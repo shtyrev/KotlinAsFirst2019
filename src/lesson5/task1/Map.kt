@@ -2,6 +2,7 @@
 
 package lesson5.task1
 
+import ru.spbstu.wheels.sorted
 import java.lang.StringBuilder
 
 /**
@@ -140,12 +141,12 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    val keys = b.keys
-    val values = b.values
     val c = a.toMap()
     for ((key, value) in c) {
-        if (key in keys && value in values) {
-            a.remove(key)
+        for ((key2, value2) in b) {
+            if (key in key2 && value in value2) {
+                a.remove(key)
+            }
         }
     }
 }
@@ -340,7 +341,19 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+fun hasAnagrams(words: List<String>): Boolean {
+    for (i in 0 until words.size - 1) {
+        val symbol1 = words[i].toSet() as MutableSet<Char>
+        symbol1.sorted()
+        for (j in 1 until words.size) {
+            val symbol2 = words[j].toSet() as MutableSet<Char>
+            symbol2.retainAll(symbol1)
+            symbol2.sorted()
+            if (symbol1 == symbol2 && i != j) return true
+        }
+    }
+    return false
+}
 
 /**
  * Сложная
@@ -385,7 +398,18 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    for (i in 0 until list.size - 1) {
+        for (j in 1 until list.size) {
+            if (i != j && list[i] + list[j] == number) {
+                val p = i to j
+                p.sorted()
+                return p
+            }
+        }
+    }
+    return -1 to -1
+}
 
 /**
  * Очень сложная
