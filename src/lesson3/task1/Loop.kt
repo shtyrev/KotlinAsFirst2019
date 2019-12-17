@@ -218,19 +218,8 @@ fun collatzSteps(x: Int): Int {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun xPowFact(x: Double, i: Int, j: Int): Double = ((-1).pow(j) * (x.pow(i)) / (factorial(i)))
 
-fun sin(x: Double, eps: Double): Double {
-    var i = 3
-    var j = 1
-    var y = x
-    while (abs(xPowFact(x, i, 0)) > eps) {
-        y += xPowFact(x, i, j)
-        j++
-        i += 2
-    }
-    return y
-}
+fun sin(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя
@@ -296,7 +285,7 @@ fun isPalindrome(n: Int): Boolean = n == revert(n)
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var count = intLength(n) - 1
+    val count = intLength(n) - 1
     val num1 = intInList(n)
     for (i in 0 until count) {
         if (num1[i] != num1[i + 1]) return true

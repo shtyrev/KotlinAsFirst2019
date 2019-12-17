@@ -343,12 +343,13 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  */
 fun hasAnagrams(words: List<String>): Boolean {
     for (i in 0 until words.size - 1) {
-        val symbol1 = words[i].toSet() as MutableSet<Char>
+        val symbol1 = words[i].toSet()
         symbol1.sorted()
         for (j in 1 until words.size) {
+            if(words[j].isEmpty() && words[i].isEmpty() && i != j) return true
             val symbol2 = words[j].toSet() as MutableSet<Char>
-            symbol2.retainAll(symbol1)
             symbol2.sorted()
+            symbol2.retainAll(symbol1)
             if (symbol1 == symbol2 && i != j) return true
         }
     }

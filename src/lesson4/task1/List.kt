@@ -385,11 +385,11 @@ fun decimalFromString(str: String, base: Int): Int {
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var str = StringBuilder()
+    val str = StringBuilder()
     var num = n
     val rim = listOf("I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M")
     val arb = listOf(1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000)
-    for (i in 12 downTo 0) {
+    for (i in (arb.size - 1) downTo 0) {
         while (num >= arb[i]) {
             str.append(rim[i])
             num -= arb[i]
