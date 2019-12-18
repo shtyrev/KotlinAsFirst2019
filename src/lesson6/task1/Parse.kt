@@ -130,7 +130,12 @@ fun dateDigitToStr(digital: String): String {
         "12" -> date[1] = "декабря"
         else -> date[1] = "0"
     }
-    return String.format("%d %s %s", date[0].toInt(), date[1], date[2])
+    try {
+        if (date[1].toInt() == 0) return ""
+    } catch (e: NumberFormatException) {
+        return String.format("%d %s %s", date[0].toInt(), date[1], date[2])
+    }
+    return ""
 }
 
 /**
