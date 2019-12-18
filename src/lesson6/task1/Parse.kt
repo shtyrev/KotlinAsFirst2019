@@ -78,7 +78,7 @@ fun dateStrToDigit(str: String): String {
     when (date[1]) {
         "января" -> date[1] = "01"
         "февраля" -> date[1] = "02"
-        "мара" -> date[1] = "03"
+        "марта" -> date[1] = "03"
         "апреля" -> date[1] = "04"
         "мая" -> date[1] = "05"
         "июня" -> date[1] = "06"
@@ -118,7 +118,7 @@ fun dateDigitToStr(digital: String): String {
     when (date[1]) {
         "01" -> date[1] = "января"
         "02" -> date[1] = "февраля"
-        "03" -> date[1] = "мара"
+        "03" -> date[1] = "марта"
         "04" -> date[1] = "апреля"
         "05" -> date[1] = "мая"
         "06" -> date[1] = "июня"
