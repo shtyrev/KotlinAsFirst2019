@@ -42,6 +42,7 @@ fun daysInMonth(month: Int, year: Int): Int {
     return when (month) {
         1, 3, 5, 7, 8, 10, 12 -> 31
         4, 6, 9, 11 -> 30
+        0 -> -1
         else -> when {
             (year % 4 == 0 && year % 100 == 0 && year % 400 != 0) || year % 4 != 0 -> 28
             else -> 29

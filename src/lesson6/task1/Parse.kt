@@ -2,6 +2,9 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+import java.lang.StringBuilder
+
 /**
  * Пример
  *
@@ -69,7 +72,31 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val date = str.split(" ").toMutableList()
+    if (date.size != 3) return ""
+    when (date[1]) {
+        "января" -> date[1] = "01"
+        "февраля" -> date[1] = "02"
+        "мара" -> date[1] = "03"
+        "апреля" -> date[1] = "04"
+        "мая" -> date[1] = "05"
+        "июня" -> date[1] = "06"
+        "июля" -> date[1] = "07"
+        "августа" -> date[1] = "08"
+        "сентября" -> date[1] = "09"
+        "октября" -> date[1] = "10"
+        "ноября" -> date[1] = "11"
+        "декабря" -> date[1] = "12"
+        else -> date[1] = "0"
+    }
+    try {
+        if (daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) return ""
+        return String.format("%02d.%s.%s", date[0].toInt(), date[1], date[2])
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Средняя
@@ -81,7 +108,30 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val date = digital.split(".").toMutableList()
+    try {
+        if (date.size != 3 || daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) return ""
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+    when (date[1]) {
+        "01" -> date[1] = "января"
+        "02" -> date[1] = "февраля"
+        "03" -> date[1] = "мара"
+        "04" -> date[1] = "апреля"
+        "05" -> date[1] = "мая"
+        "06" -> date[1] = "июня"
+        "07" -> date[1] = "июля"
+        "08" -> date[1] = "августа"
+        "09" -> date[1] = "сентября"
+        "10" -> date[1] = "октября"
+        "11" -> date[1] = "ноября"
+        "12" -> date[1] = "декабря"
+        else -> date[1] = "0"
+    }
+    return String.format("%d %s %s", date[0].toInt(), date[1], date[2])
+}
 
 /**
  * Средняя
@@ -109,8 +159,14 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
-
+fun bestLongJump(jumps: String): Int {
+    val str = "test - test"
+    val dig = Regex("""(\w\w\w\w\s)|(\s\w\w\w\w)""").find(str)
+    if (dig != null) {
+        for (element in dig.groupValues) println(element)
+    } else println(-1)
+    return 0
+}
 /**
  * Сложная
  *

@@ -346,7 +346,7 @@ fun hasAnagrams(words: List<String>): Boolean {
         val symbol1 = words[i].toSet()
         symbol1.sorted()
         for (j in 1 until words.size) {
-            if(words[j].isEmpty() && words[i].isEmpty() && i != j) return true
+            if (words[j].isEmpty() && words[i].isEmpty() && i != j) return true
             val symbol2 = words[j].toSet() as MutableSet<Char>
             symbol2.sorted()
             symbol2.retainAll(symbol1)
