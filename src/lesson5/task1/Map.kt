@@ -141,14 +141,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    val c = a.toMap()
-    for ((key, value) in c) {
-        for ((key2, value2) in b) {
-            if (key in key2 && value in value2) {
-                a.remove(key)
-            }
-        }
-    }
+    TODO()
 }
 
 /**
@@ -209,26 +202,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = clearReplays(
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    val map = mutableMapOf<String, String>()
-    if (mapB.isEmpty()) return mapA
-    if (mapA.isEmpty()) return mapB
-    for ((key1, value1) in mapA) {
-        for ((key2, value2) in mapB) {
-            when {
-                key1 == key2 -> if (value1 != value2) {
-                    map[key1] = "$value1, $value2"
-                } else if (key1 !in map) {
-                    map[key1] = value1
-                }
-                key1 != key2 -> if (key1 !in map) {
-                    map[key1] = value1
-                } else map[key2] = value2
-            }
-        }
-    }
-    return map
-}
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
 
 /**
  * Средняя
@@ -341,20 +315,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean {
-    for (i in 0 until words.size - 1) {
-        val symbol1 = words[i].toSet()
-        symbol1.sorted()
-        for (j in 1 until words.size) {
-            if (words[j].isEmpty() && words[i].isEmpty() && i != j) return true
-            val symbol2 = words[j].toSet() as MutableSet<Char>
-            symbol2.sorted()
-            symbol2.retainAll(symbol1)
-            if (symbol1 == symbol2 && i != j) return true
-        }
-    }
-    return false
-}
+fun hasAnagrams(words: List<String>): Boolean = TODO()
 
 /**
  * Сложная
