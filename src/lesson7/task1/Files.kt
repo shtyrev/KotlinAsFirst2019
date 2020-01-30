@@ -67,7 +67,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
             for (i in line.windowed(size = word.length)) {
                 val wd = i.toLowerCase()
                 if (word == wd) {
-                    map[words] = map[words]!! + 1
+                    map[words] = map[words]?.plus(1) ?: 1
                 }
             }
         }
