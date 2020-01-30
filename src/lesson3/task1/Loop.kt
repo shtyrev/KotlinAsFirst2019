@@ -9,6 +9,7 @@ import kotlin.math.pow
 import lesson1.task1.pow
 import lesson4.task1.intInList
 import lesson1.task1.sqr
+import kotlin.math.PI
 
 /**
  * Пример
@@ -126,11 +127,9 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var i = 2
-    while (n % i != 0) {
-        i++
-    }
-    return i
+    for (i in 2..sqrt(n.toDouble()).toInt())
+        if (n % i == 0) return 1
+    return n
 }
 
 /**
@@ -138,13 +137,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var i = n - 1
-    while (n % i != 0) {
-        i--
-    }
-    return i
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
@@ -174,7 +167,7 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
         i++
     }
     return when {
-        i <= 46340 && sqr(i) <= n -> true
+        i <= sqrt(Int.MAX_VALUE.toDouble()) && sqr(i) <= n -> true
         else -> false
     }
 }
@@ -219,7 +212,24 @@ fun collatzSteps(x: Int): Int {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var result = 0.0
+    var value = 1
+    var fac = 1.0
+    var facArg = 1
+    var num = x % (2 * PI)
+    var firstNum = num
+    val sqrNum = sqr(num)
+    while (abs(firstNum) >= eps) {
+        result += firstNum * value
+        value *= -1
+        num *= sqrNum
+        facArg += 2
+        fac *= facArg * (facArg - 1)
+        firstNum = num / fac
+    }
+    return result
+}
 
 /**
  * Средняя
@@ -230,7 +240,24 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var result = 0.0
+    var value = 1
+    var fac = 1.0
+    var facArg = 0
+    val sqrNum = sqr(x % (2 * PI))
+    var num = 1.0
+    var firstNum = num
+    while (abs(firstNum) >= eps) {
+        result += firstNum * value
+        value *= -1
+        num *= sqrNum
+        facArg += 2
+        fac *= facArg * (facArg - 1)
+        firstNum = num / fac
+    }
+    return result
+}
 
 /**
  * Средняя
@@ -240,23 +267,12 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 // длина числа
-fun intLength(n: Int): Int {
-    var num = n
-    var count = 0
-    when (n) {
-        0 -> count = 1
-        else -> while (num != 0) {
-            count++
-            num /= 10
-        }
-    }
-    return count
-}
+fun intLength(n: Int): Int = n.toString().length
 
 fun revert(n: Int): Int {
     var num = n
     var number = 0
-    val count = intLength(n) - 1
+    val count = n.toString().length - 1
 
     for (i in count downTo 0) {
         number += (num % 10) * 10.pow(i)

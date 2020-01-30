@@ -268,38 +268,50 @@ fun convert(n: Int, base: Int): List<Int> {
 fun convertToString(n: Int, base: Int): String {
     var str = ""
     val list = convert(n, base)
+    val numDec = mutableListOf<Int>()
+    val numHex = listOf(
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z'
+    )
+    for (i in 10..35) {
+        numDec.add(i)
+    }
     for (i in list.indices) {
-        when (list[i]) {
-            10 -> str += "a"
-            11 -> str += "b"
-            12 -> str += "c"
-            13 -> str += "d"
-            14 -> str += "e"
-            15 -> str += "f"
-            16 -> str += "g"
-            17 -> str += "h"
-            18 -> str += "i"
-            19 -> str += "j"
-            20 -> str += "k"
-            21 -> str += "l"
-            22 -> str += "m"
-            23 -> str += "n"
-            24 -> str += "o"
-            25 -> str += "p"
-            26 -> str += "q"
-            27 -> str += "r"
-            28 -> str += "s"
-            29 -> str += "t"
-            30 -> str += "u"
-            31 -> str += "v"
-            32 -> str += "w"
-            33 -> str += "x"
-            34 -> str += "y"
-            35 -> str += "z"
-            else -> str += "${list[i]}"
+        for (j in numDec.indices) {
+            if (list[i] in 0..9) {
+                str += "${list[i]}"
+                break
+            } else if (list[i] == numDec[j]) {
+                str += "${numHex[j]}"
+                break
+            }
         }
     }
-    return str
+return str
 }
 
 /**
@@ -333,47 +345,95 @@ fun decimal(digits: List<Int>, base: Int): Int {
  */
 fun decimalFromString(str: String, base: Int): Int {
     val list = mutableListOf<Int>()
+    val numDec = mutableListOf<Int>()
+    val numHex = listOf(
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z'
+    )
+    for (i in 10..35) {
+        numDec.add(i)
+    }
     for (element in str) {
-        when (element) {
-            '0' -> list.add(0)
-            '1' -> list.add(1)
-            '2' -> list.add(2)
-            '3' -> list.add(3)
-            '4' -> list.add(4)
-            '5' -> list.add(5)
-            '6' -> list.add(6)
-            '7' -> list.add(7)
-            '8' -> list.add(8)
-            '9' -> list.add(9)
-            'a' -> list.add(10)
-            'b' -> list.add(11)
-            'c' -> list.add(12)
-            'd' -> list.add(13)
-            'e' -> list.add(14)
-            'f' -> list.add(15)
-            'g' -> list.add(16)
-            'h' -> list.add(17)
-            'i' -> list.add(18)
-            'j' -> list.add(19)
-            'k' -> list.add(20)
-            'l' -> list.add(21)
-            'm' -> list.add(22)
-            'n' -> list.add(23)
-            'o' -> list.add(24)
-            'p' -> list.add(25)
-            'q' -> list.add(26)
-            'r' -> list.add(27)
-            's' -> list.add(28)
-            't' -> list.add(29)
-            'u' -> list.add(30)
-            'v' -> list.add(31)
-            'w' -> list.add(32)
-            'x' -> list.add(33)
-            'y' -> list.add(34)
-            'z' -> list.add(35)
+        for (j in numHex.indices) {
+// "-48" потому, что при toInt(), программа выдает чисто на 48 бальше -> "1".toInt() = 49;
+// Как преобразовать String/Char -> Int, по другому, я не знаю
+            if (element.toInt() - 48 in 0..9) {
+                list.add(element.toInt() - 48)
+                break
+            } else if (element == numHex[j]) {
+                list.add(numDec[j])
+                break
+            }
         }
     }
     return decimal(list, base)
+
+//    val list = mutableListOf<Int>()
+//    for (element in str) {
+//        when (element) {
+//            '0' -> list.add(0)
+//            '1' -> list.add(1)
+//            '2' -> list.add(2)
+//            '3' -> list.add(3)
+//            '4' -> list.add(4)
+//            '5' -> list.add(5)
+//            '6' -> list.add(6)
+//            '7' -> list.add(7)
+//            '8' -> list.add(8)
+//            '9' -> list.add(9)
+//            'a' -> list.add(10)
+//            'b' -> list.add(11)
+//            'c' -> list.add(12)
+//            'd' -> list.add(13)
+//            'e' -> list.add(14)
+//            'f' -> list.add(15)
+//            'g' -> list.add(16)
+//            'h' -> list.add(17)
+//            'i' -> list.add(18)
+//            'j' -> list.add(19)
+//            'k' -> list.add(20)
+//            'l' -> list.add(21)
+//            'm' -> list.add(22)
+//            'n' -> list.add(23)
+//            'o' -> list.add(24)
+//            'p' -> list.add(25)
+//            'q' -> list.add(26)
+//            'r' -> list.add(27)
+//            's' -> list.add(28)
+//            't' -> list.add(29)
+//            'u' -> list.add(30)
+//            'v' -> list.add(31)
+//            'w' -> list.add(32)
+//            'x' -> list.add(33)
+//            'y' -> list.add(34)
+//            'z' -> list.add(35)
+//        }
+//    }
+//    return decimal(list, base)
 }
 
 /**

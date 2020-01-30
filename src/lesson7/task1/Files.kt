@@ -90,7 +90,47 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()) {
+        when {
+            line.split("жы").size > 1 -> for (i in line.split("жы")) {
+                writer.write(i + "жи ")
+            }
+            line.split("шы").size > 1 -> for (i in line.split("шы")) {
+                writer.write(i + "ши ")
+            }
+            line.split("чы").size > 1 -> for (i in line.split("чы")) {
+                writer.write(i + "чи ")
+            }
+            line.split("щы").size > 1 -> for (i in line.split("щы")) {
+                writer.write(i + "щи ")
+            }
+            line.split("жя").size > 1 -> for (i in line.split("жя")) {
+                writer.write(i + "жа ")
+            }
+            line.split("шя").size > 1 -> for (i in line.split("шя")) {
+                writer.write(i + "ша ")
+            }
+            line.split("чя").size > 1 -> for (i in line.split("чя")) {
+                writer.write(i + "ча ")
+            }
+            line.split("щя").size > 1 -> for (i in line.split("щя")) {
+                writer.write(i + "ща ")
+            }
+            line.split("жю").size > 1 -> for (i in line.split("жю")) {
+                writer.write(i + "жу ")
+            }
+            line.split("шю").size > 1 -> for (i in line.split("шю")) {
+                writer.write(i + "шу ")
+            }
+            line.split("чю").size > 1 -> for (i in line.split("чю")) {
+                writer.write(i + "щу ")
+            }
+            line.split("щю").size > 1 -> for (i in line.split("щю")) {
+                writer.write(i + "щу ")
+            }
+        }
+    }
 }
 
 /**
