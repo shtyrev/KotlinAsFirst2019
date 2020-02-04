@@ -4,14 +4,14 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
-import lesson3.task1.intLength
+import lesson3.task1.digitNumber
 import java.lang.StringBuilder
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 fun intInList(n: Int): List<Int> {
     val list = mutableListOf<Int>()
-    val count = intLength(n)
+    val count = digitNumber(n)
     var num = n
     for (i in 0 until count) {
         list.add(num % 10)
@@ -311,7 +311,7 @@ fun convertToString(n: Int, base: Int): String {
             }
         }
     }
-return str
+    return str
 }
 
 /**
@@ -391,49 +391,6 @@ fun decimalFromString(str: String, base: Int): Int {
         }
     }
     return decimal(list, base)
-
-//    val list = mutableListOf<Int>()
-//    for (element in str) {
-//        when (element) {
-//            '0' -> list.add(0)
-//            '1' -> list.add(1)
-//            '2' -> list.add(2)
-//            '3' -> list.add(3)
-//            '4' -> list.add(4)
-//            '5' -> list.add(5)
-//            '6' -> list.add(6)
-//            '7' -> list.add(7)
-//            '8' -> list.add(8)
-//            '9' -> list.add(9)
-//            'a' -> list.add(10)
-//            'b' -> list.add(11)
-//            'c' -> list.add(12)
-//            'd' -> list.add(13)
-//            'e' -> list.add(14)
-//            'f' -> list.add(15)
-//            'g' -> list.add(16)
-//            'h' -> list.add(17)
-//            'i' -> list.add(18)
-//            'j' -> list.add(19)
-//            'k' -> list.add(20)
-//            'l' -> list.add(21)
-//            'm' -> list.add(22)
-//            'n' -> list.add(23)
-//            'o' -> list.add(24)
-//            'p' -> list.add(25)
-//            'q' -> list.add(26)
-//            'r' -> list.add(27)
-//            's' -> list.add(28)
-//            't' -> list.add(29)
-//            'u' -> list.add(30)
-//            'v' -> list.add(31)
-//            'w' -> list.add(32)
-//            'x' -> list.add(33)
-//            'y' -> list.add(34)
-//            'z' -> list.add(35)
-//        }
-//    }
-//    return decimal(list, base)
 }
 
 /**

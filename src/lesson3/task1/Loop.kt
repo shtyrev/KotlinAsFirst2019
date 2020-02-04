@@ -266,13 +266,11 @@ fun cos(x: Double, eps: Double): Double {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-// длина числа
-fun intLength(n: Int): Int = n.toString().length
 
 fun revert(n: Int): Int {
     var num = n
     var number = 0
-    val count = n.toString().length - 1
+    val count = digitNumber(n) - 1
 
     for (i in count downTo 0) {
         number += (num % 10) * 10.pow(i)
@@ -301,7 +299,7 @@ fun isPalindrome(n: Int): Boolean = n == revert(n)
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    val count = intLength(n) - 1
+    val count = digitNumber(n) - 1
     val num1 = intInList(n)
     for (i in 0 until count) {
         if (num1[i] != num1[i + 1]) return true
@@ -319,25 +317,13 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    var x = 1
     var num = 0
-    var count = 0
-
-    for (i in 1..n) {
-        count += intLength(sqr(i))
-        if (count >= n) {
-            num = count - n
-            x = sqr(i)
-            break
-        }
+    var numSqu = 0
+    while (num < n) {
+        numSqu++
+        num += digitNumber(sqr(numSqu))
     }
-    count = intLength(x)
-    for (i in 0 until count) {
-        when (num) {
-            i -> x = x / 10.pow(i) % 10
-        }
-    }
-    return x
+    return sequenceDigit(sqr(numSqu), (num - n + 1))
 }
 
 /**
@@ -350,26 +336,22 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    var count = 2
-    var number = 1
-    var num2: Int
-    var num1 = 1
-    var num = 1
-    if (n == 1 || n == 2) return 1
-    while (count < n) {
-        num2 = num1
-        num1 = num
-        num = (num2 + num1)
-        count += intLength(num)
-        if (count >= n) {
-            number = count - n
-        }
+    var num = 0
+    var numSqu = 0
+    while (num < n) {
+        numSqu++
+        num += digitNumber(fib(numSqu))
     }
-    count = intLength(num)
-    for (i in 0 until count) {
-        when (number) {
-            i -> num = num / 10.pow(i) % 10
-        }
+    return sequenceDigit(fib(numSqu), (num - n + 1))
+}
+
+
+fun sequenceDigit(num: Int, pos: Int): Int {
+    var num = num
+    var number = 0
+    for (i in 1..pos) {
+        number = num % 10
+        num /= 10
     }
-    return num
+    return number
 }
