@@ -141,12 +141,9 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    val c = a.toMap()
-    for ((key, value) in c) {
-        for ((key1, value1) in b) {
-            if ((value == value1) && (key == key1))
-                a.remove(key, value)
-        }
+    for ((key, value) in a) {
+        if ((value == b[key]))
+            a.remove(key, value)
     }
 }
 
@@ -158,13 +155,11 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
 fun listToList(a: List<String>, b: List<String>): MutableList<String> {
+    val double = b.toSet()
     val list = mutableListOf<String>()
-    for (item in a) {
-        for (element in b) {
-            if (item == element) {
-                list.add(item)
-                break
-            }
+    for (name in a) {
+        if (name in double) {
+            list += name
         }
     }
     return list
@@ -275,16 +270,11 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    var count = 0
-    for (i in word.indices) {
-        for (element in chars) {
-            if (word[i].toLowerCase() == element.toLowerCase()) {
-                count++
-                break
-            }
-        }
+    val char = word.toList()
+    for (i in char) {
+        if (i !in chars) return false
     }
-    return count == word.length
+    return true
 }
 
 /**
@@ -299,17 +289,20 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
+fun clearRepeatsMap(map: Map<String, Int>): Map<String, Int> {
+    val res = mutableMapOf<String, Int>()
+    for (i in map.keys) {
+        if (map[i] ?: continue > 1) res[i] = map[i] ?: continue
+    }
+    return res
+}
+
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    var count = 1
     val repeat = mutableMapOf<String, Int>()
     for (i in list.indices) {
-        for (j in list.indices) {
-            if (i != j && list[i] == list[j]) count++
-        }
-        if (count != 1) repeat[list[i]] = count
-        count = 1
+        repeat[list[i]] = repeat[list[i]]?.plus(1) ?: 1
     }
-    return repeat
+    return clearRepeatsMap(repeat)
 }
 
 /**

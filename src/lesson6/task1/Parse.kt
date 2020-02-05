@@ -3,7 +3,6 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
-import java.lang.StringBuilder
 
 /**
  * Пример
@@ -74,28 +73,32 @@ fun main() {
  */
 fun dateStrToDigit(str: String): String {
     val date = str.split(" ").toMutableList()
+    val month = monthInDigit()
     if (date.size != 3) return ""
-    when (date[1]) {
-        "января" -> date[1] = "01"
-        "февраля" -> date[1] = "02"
-        "марта" -> date[1] = "03"
-        "апреля" -> date[1] = "04"
-        "мая" -> date[1] = "05"
-        "июня" -> date[1] = "06"
-        "июля" -> date[1] = "07"
-        "августа" -> date[1] = "08"
-        "сентября" -> date[1] = "09"
-        "октября" -> date[1] = "10"
-        "ноября" -> date[1] = "11"
-        "декабря" -> date[1] = "12"
-        else -> date[1] = "0"
-    }
+    date[1] = month[date[1]] ?: return ""
     try {
         if (daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) return ""
         return String.format("%02d.%s.%s", date[0].toInt(), date[1], date[2])
     } catch (e: NumberFormatException) {
         return ""
     }
+}
+
+fun monthInDigit(): Map<String, String> {
+    val month = mutableMapOf<String, String>()
+    month["января"] = "01"
+    month["февраля"] = "02"
+    month["марта"] = "03"
+    month["апреля"] = "04"
+    month["мая"] = "05"
+    month["июня"] = "06"
+    month["июля"] = "07"
+    month["августа"] = "08"
+    month["сентября"] = "09"
+    month["октября"] = "10"
+    month["ноября"] = "11"
+    month["декабря"] = "12"
+    return month
 }
 
 /**
@@ -110,26 +113,17 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val date = digital.split(".").toMutableList()
+    val month = monthInDigit()
     try {
         if (date.size != 3 || daysInMonth(date[1].toInt(), date[2].toInt()) < date[0].toInt()) return ""
     } catch (e: NumberFormatException) {
         return ""
     }
-    when (date[1]) {
-        "01" -> date[1] = "января"
-        "02" -> date[1] = "февраля"
-        "03" -> date[1] = "марта"
-        "04" -> date[1] = "апреля"
-        "05" -> date[1] = "мая"
-        "06" -> date[1] = "июня"
-        "07" -> date[1] = "июля"
-        "08" -> date[1] = "августа"
-        "09" -> date[1] = "сентября"
-        "10" -> date[1] = "октября"
-        "11" -> date[1] = "ноября"
-        "12" -> date[1] = "декабря"
-        else -> date[1] = "0"
+    val check = date[1]
+    for (i in month.keys) {
+        if (month[i] == date[1]) date[1] = i
     }
+    if (check == date[1]) return ""
     try {
         if (date[1].toInt() == 0) return ""
     } catch (e: NumberFormatException) {

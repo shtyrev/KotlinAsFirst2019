@@ -266,52 +266,20 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int): String {
-    var str = ""
+    val str = StringBuilder()
     val list = convert(n, base)
-    val numDec = mutableListOf<Int>()
-    val numHex = listOf(
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z'
-    )
-    for (i in 10..35) {
-        numDec.add(i)
-    }
-    for (i in list.indices) {
-        for (j in numDec.indices) {
-            if (list[i] in 0..9) {
-                str += "${list[i]}"
-                break
-            } else if (list[i] == numDec[j]) {
-                str += "${numHex[j]}"
-                break
+    list.joinToString(
+        separator = "",
+        transform = {
+            when (it) {
+                in 0..9 -> str.append(it)
+                //в таблице символов, а находится под 97 номером, по этому.
+                //так как а = 10, то число 10 + 87 = 97 -> 97 = a. Тоже и с остальными.
+                else -> str.append(it.toChar() + 87)
             }
         }
-    }
-    return str
+    )
+    return str.toString()
 }
 
 /**
@@ -344,53 +312,17 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int {
+    val listChar = str.toList()
     val list = mutableListOf<Int>()
-    val numDec = mutableListOf<Int>()
-    val numHex = listOf(
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z'
-    )
-    for (i in 10..35) {
-        numDec.add(i)
-    }
-    for (element in str) {
-        for (j in numHex.indices) {
-// "-48" потому, что при toInt(), программа выдает чисто на 48 бальше -> "1".toInt() = 49;
-// Как преобразовать String/Char -> Int, по другому, я не знаю
-            if (element.toInt() - 48 in 0..9) {
-                list.add(element.toInt() - 48)
-                break
-            } else if (element == numHex[j]) {
-                list.add(numDec[j])
-                break
-            }
+    for (i in listChar.indices) {
+        when (listChar[i].toInt()) {
+            // от 0 до 9 -> разница между '0' и 0 = 48
+            in 48..57 -> list.add(listChar[i].toInt() - 48)
+            // от a до z -> разница между 'а' и 10 = 87
+            else -> list.add(listChar[i].toInt() - 87)
         }
     }
-    return decimal(list, base)
+    return decimal(list.toList(), base)
 }
 
 /**

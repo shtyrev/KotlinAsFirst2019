@@ -5,10 +5,8 @@ package lesson3.task1
 import kotlin.math.abs
 import kotlin.math.sqrt
 import lesson1.task1.sqr
-import kotlin.math.pow
 import lesson1.task1.pow
 import lesson4.task1.intInList
-import lesson1.task1.sqr
 import kotlin.math.PI
 
 /**
@@ -347,11 +345,11 @@ fun fibSequenceDigit(n: Int): Int {
 
 
 fun sequenceDigit(num: Int, pos: Int): Int {
-    var num = num
+    var n = num
     var number = 0
     for (i in 1..pos) {
         number = num % 10
-        num /= 10
+        n /= 10
     }
     return number
 }
