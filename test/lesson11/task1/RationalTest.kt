@@ -9,10 +9,7 @@ class RationalTest {
     @Test
     @Tag("Example")
     fun plus() {
-        assertEquals(
-            Rational(1, 2),
-            Rational(1, 6) + Rational(1, 3)
-        )
+        assertEquals(Rational(1, 2), Rational(1, 6) + Rational(1, 3))
     }
 
     @Test
