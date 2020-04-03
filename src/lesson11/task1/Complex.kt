@@ -2,6 +2,7 @@
 
 package lesson11.task1
 
+import lesson1.task1.sqr
 import kotlin.math.pow
 
 /**
@@ -16,16 +17,9 @@ import kotlin.math.pow
 class Complex(val re: Double, val im: Double) {
 
     companion object {
-        private fun r(s: String): Double {
-            val list = Regex("""\+|\*|/|-""").split(s)
-            return list[0].toDouble()
-        }
-
-        private fun i(s: String): Double {
-            val list = Regex("""\+|\*|/|-""").split(s)
-            val str = list[1].split("i")
-            return str[0].toDouble()
-        }
+        private fun r(s: String): Double = s.filter { it != 'i' }.split(Regex("""\b[-|+]"""))[0].toDouble()
+        private fun i(s: String): Double =
+            s.filter { it != 'i' }.split(Regex("""\b[-|+]"""))[1].toDouble() * if (s.contains(Regex("""\b[-]"""))) -1 else 1
     }
 
     /**
@@ -62,8 +56,8 @@ class Complex(val re: Double, val im: Double) {
      * Деление
      */
     operator fun div(other: Complex): Complex = Complex(
-        (re * other.re - im * other.im) / (other.re.pow(2) + other.im.pow(2)),
-        (im * other.re + re * other.im) / (other.re.pow(2) + other.im.pow(2))
+        (re * other.re - im * other.im) / (sqr(other.re) + sqr(other.im)),
+        (im * other.re + re * other.im) / (sqr(other.re) + sqr(other.im))
     )
 
     /**
