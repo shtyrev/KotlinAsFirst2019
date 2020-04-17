@@ -35,22 +35,34 @@ class Complex(val re: Double, val im: Double) {
     /**
      * Сложение.
      */
-    operator fun plus(other: Complex): Complex = Complex(re + other.re, im + other.im)
+    operator fun plus(other: Complex): Complex = Complex(
+        re + other.re,
+        im + other.im
+    )
 
     /**
      * Смена знака (у обеих частей числа)
      */
-    operator fun unaryMinus(): Complex = Complex(-re, -im)
+    operator fun unaryMinus(): Complex = Complex(
+        -re,
+        -im
+    )
 
     /**
      * Вычитание
      */
-    operator fun minus(other: Complex): Complex = Complex(re - other.re, im - other.im)
+    operator fun minus(other: Complex): Complex = Complex(
+        re - other.re,
+        im - other.im
+    )
 
     /**
      * Умножение
      */
-    operator fun times(other: Complex): Complex = Complex(re * other.re - im * other.im, im * other.re + re * other.im)
+    operator fun times(other: Complex): Complex = Complex(
+        re * other.re - im * other.im,
+        im * other.re + re * other.im
+    )
 
     /**
      * Деление
